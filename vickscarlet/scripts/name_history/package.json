@@ -1,7 +1,7 @@
 {
   "name": "@b38dev/name-history",
   "author": "神戸小鳥 @vickscarlet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bangumi 用户曾用名, 显示用户的历史用户名",
   "license": "MIT",
   "main": "src/index.ts",

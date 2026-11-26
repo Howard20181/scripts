@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bangumi 用户曾用名
 // @namespace    b38.dev
-// @version      1.0.0
+// @version      1.0.1
 // @author       神戸小鳥 @vickscarlet
 // @description  Bangumi 用户曾用名, 显示用户的历史用户名
 // @license      MIT
@@ -47,7 +47,9 @@
     try {
       const ret = await fetchUserNameHistory(uid);
       const updated = new Date(ret.update).toLocaleString();
-      const names = Array.from(ret.names).map((name) => `<li>${name}</li>`);
+      const names = Array.from(ret.names).map(
+        (name) => `<li>${name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</li>`
+      );
       return `<span>${updated}</span><ul>${names.join("")}</ul>`;
     } catch (e) {
       console.error(e);

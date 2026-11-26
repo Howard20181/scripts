@@ -5,7 +5,15 @@ async function fetchByUid(uid: string) {
     try {
         const ret = await fetchUserNameHistory(uid)
         const updated = new Date(ret.update).toLocaleString()
-        const names = Array.from(ret.names).map((name) => `<li>${name}</li>`)
+        const names = Array.from(ret.names).map(
+            (name) =>
+                `<li>${name
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;')}</li>`,
+        )
         return `<span>${updated}</span><ul>${names.join('')}</ul>`
     } catch (e) {
         console.error(e)
@@ -15,7 +23,7 @@ async function fetchByUid(uid: string) {
 
 ;(async () => {
     const nameElement = document.querySelector<HTMLAnchorElement>(
-        '#headerProfile .subjectNav .headerContainer .inner .name a'
+        '#headerProfile .subjectNav .headerContainer .inner .name a',
     )
     if (!nameElement) return
     const username = nameElement.href.split('/').pop()
